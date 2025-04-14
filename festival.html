@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音樂祭介紹</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .header {
+            width: 100%;
+            text-align: center;
+            position: relative;
+            padding-top: 20px;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 90%;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .image-container {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        .image-container img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .info-container {
+            width: 100%;
+            max-width: 800px;
+        }
+        .info-section {
+            margin-bottom: 25px;
+        }
+        h1 {
+            font-size: 35px;
+            margin: 0;
+        }
+        h2 {
+            font-size: 28px;
+            margin: 15px 0;
+            color: #ff4757;
+        }
+        h3 {
+            font-size: 22px;
+            margin: 10px 0;
+            color: #7bed9f;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .detail-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .detail-label {
+            font-weight: bold;
+            min-width: 100px;
+            color: #ffa502;
+        }
+        .detail-value {
+            flex: 1;
+        }
+        .favorite-btn {
+            position: fixed;
+            top: 20px;
+            right: 100px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        .favorite-btn:hover {
+            background-color: #ff6b81;
+            transform: scale(1.05);
+        }
+        .favorite-btn.favorited {
+            background-color: #2ed573;
+        }
+        .favorite-btn.favorited:hover {
+            background-color: #7bed9f;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            .detail-item {
+                flex-direction: column;
+            }
+            .detail-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="collection-festivals.html" class="back-btn">← 返回</a>
+        <button id="favorite-btn" class="favorite-btn">❤️ 收藏</button>
+        <h1 id="festival-name">音樂祭名稱</h1>
+        <div class="social-icons">
+            <a id="ig-link" target="_blank">
+                <img src="" alt="">
+            </a>
+            <a id="web-link" target="_">
+                <img src="" alt="">
+            </a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="image-container">
+            <img id="festival-image" alt="音樂祭圖片">
+        </div>
+        
+        <div class="info-container">
+            <div class="info-section">
+                <h2>關於音樂祭</h2>
+                <p id="festival-description">音樂祭描述將在這裡顯示...</p>
+            </div>
+            
+            <div class="info-section">
+                <h2>活動資訊</h2>
+                <div class="detail-item">
+                    <div class="detail-label">日期：</div>
+                    <div class="detail-value" id="festival-date">未提供</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">地點：</div>
+                    <div class="detail-value" id="festival-location">未提供</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">票價：</div>
+                    <div class="detail-value" id="festival-price">未提供</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">官方網站：</div>
+                    <div class="detail-value">
+                        <a id="festival-website" href="#" target="_blank">點擊訪問</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+        
+                </ul>
+            </div>
+            
+        
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 從URL獲取音樂祭名稱
+        const urlParams = new URLSearchParams(window.location.search);
+        const festivalName = urlParams.get('name');
+        
+        // 音樂祭資料庫 (實際應用中應該從後端API獲取)
+        const festivalDatabase = {
+            "大港開唱": {
+                alias: "Megaport Festival",
+                igLink: "https://www.instagram.com/megaportfest/",
+                webLink: "https://megaportfest.com/",
+                description: "大港開唱是台灣最具代表性的音樂祭之一，每年在高雄舉辦，以多元的音樂風格和熱情的現場氛圍聞名。活動結合音樂表演、藝術裝置和在地文化，吸引來自全台的樂迷參與。",
+                image: "images/festivals/大港開唱.webp",
+                date: "2025/3/29～3/30",
+                location: "高雄駁二藝術特區",
+                price: "早鳥票 $2,000 / 一般票 $2,500",
+            },
+            "浮現祭": {
+                alias: "Emerging Festival",
+                igLink: "https://www.instagram.com/emergingfest/",
+                webLink: "https://emerge.inliveroad.net/2025/",
+                description: "浮現祭是台灣新興的獨立音樂祭，以發掘新銳樂團和推廣獨立音樂為宗旨。活動結合音樂表演、創意市集和工作坊，提供全方位的藝術體驗。",
+                image: "images/festivals/浮現祭.webp",
+                date: "2025/02/22～02/23",
+                location: "台中市自由車場",
+                price: "單日票 $1,200 / 兩日聯票 $2,000",
+               
+            },
+            "臺灣祭2025": {
+                alias: "Taiwan Festival",
+                igLink: "https://www.instagram.com/taiwanfest/",
+                webLink: "https://www.taiwanfest.net/",
+                description: "臺灣祭是台灣最大的音樂與文化盛會之一，結合音樂、藝術、電影和美食，展現台灣的多元文化。活動吸引國內外知名藝人參與，並提供豐富的互動體驗。",
+                image: "images/festivals/臺灣祭2025.jpg",
+                date: "每年8月 (為期3天)",
+                location: "墾丁大灣遊憩區",
+                price: "免費入場",
+                notices: [
+                    "請遵守現場秩序",
+                    "禁止攜帶危險物品入場",
+                    "活動期間禁止吸煙",
+                    "請勿在場內拍攝閃光燈"
+                ]
+            },
+            "屏東三大日音樂節": {
+                alias: "Pingtung Music Festival",
+                igLink: "https://www.instagram.com/pingtungmusicfest/",
+                webLink: "https://www.amazing-pingtung.com/ptsmf",
+                description: "屏東三大日音樂祭是結合音樂、藝術和在地文化的盛會，活動地點選在屏東縣的美麗海岸，提供觀眾獨特的視聽享受。",
+                image: "images/festivals/屏東三大日音樂節.jpg",
+                date: "每年5月 (為期2天)",
+                location: "屏東縣恆春鎮",
+                price: "早鳥票 $1,800 / 一般票 $2,200",
+                notices: [
+                    "請自備防曬用品",
+                    "活動期間禁止攜帶飲料入場",
+                    "請勿攜帶大型行李進入場地",
+                    "如遇天候不佳，將依當地氣象公告"
+                ]
+            },
+            "湖畔音樂季": {
+                alias: "Lakeside Music Festival",
+                igLink: "https://www.instagram.com/lakesidemusicfest/",
+                webLink: "https://www.facebook.com/NCHUlakefestival/?locale=zh_TW",
+                description: "湖畔音樂季是台灣最具特色的音樂祭之一，結合湖泊美景和音樂表演，提供觀眾獨特的視覺和聽覺享受。活動吸引國內外知名藝人參與，並提供豐富的互動體驗。",
+                image: "images/festivals/湖畔音樂季.jpg",
+                date: "2025/05/10～05/11",
+                location: "中興大學",
+                price: "單日票 $1,500 / 兩日聯票 $2,800",
+                notices: [
+                    "請遵守現場秩序",
+                    "禁止攜帶危險物品入場",
+                    "活動期間禁止吸煙",
+                    "請勿在場內拍攝閃光燈"
+                ]
+            },
+            "春浪音樂節": {
+                alias: "Spring Wave Music Festival",
+                igLink: "https://www.instagram.com/springwavefest/",
+                webLink: "https://www.facebook.com/springwave/?locale=zh_TW",
+                description: "春浪音樂節是台灣最具代表性的音樂祭之一，每年在澎湖舉辦，以多元的音樂風格和熱情的現場氛圍聞名。活動結合音樂表演、藝術裝置和在地文化，吸引來自全台的樂迷參與。",
+                image: "images/festivals/春浪音樂節.jpg",
+                date: "2025/10/31~11/02",
+                location: "台中森渼原",
+                price: "早鳥票 $2,000 / 一般票 $2,500",
+                notices: [
+                    "活動現場禁止攜帶外食",
+                    "請自備環保餐具",
+                    "18歲以下需家長陪同入場",
+                    "禁止攜帶寵物入場"
+                ]
+            },
+            "上岸音樂節": {
+                alias: "Shoreline Music Festival",
+                igLink: "https://www.instagram.com/shorelinemusicfest/",
+                webLink: "https://www.facebook.com/ncuashore/?locale=zh_TW",
+                description: "上岸音樂節是台灣新興的獨立音樂祭，以發掘新銳樂團和推廣獨立音樂為宗旨。活動結合音樂表演、創意市集和工作坊，提供全方位的藝術體驗。",
+                image: "images/festivals/上岸音樂節.png",
+                date: "2025/05/17~05/18",
+                location: "國立中央大學 ",
+                price: "單日票 $1,000 / 兩日聯票 $1,800",
+    
+            },
+            "倉庫音樂祭": {
+                alias: "Warehouse Music Festival",
+                igLink: "https://www.instagram.com/warehousefest/",
+                webLink: "https://www.warehousefest.com/",
+                description: "倉庫音樂祭是台灣最大的音樂與文化盛會之一，結合音樂、藝術、電影和美食，展現台灣的多元文化。活動吸引國內外知名藝人參與，並提供豐富的互動體驗。",
+                image: "images/festivals/倉庫音樂祭.webp",
+                date: "1月4日",
+                location: "北市羽球館",
+                price: "單日票2700",
+        
+            },
+            "東浪嘉年華": {
+                alias: "East Wave Carnival",
+                igLink: "https://www.instagram.com/eastwavefest/",
+                webLink: "https://www.facebook.com/eastwave.tt/",
+                description: "東浪嘉年華是台灣最具特色的音樂祭之一，結合海洋美景和音樂表演，提供觀眾獨特的視覺和聽覺享受。活動吸引國內外知名藝人參與，並提供豐富的互動體驗。",
+                image: "images/festivals/東浪嘉年華.jpg",
+                date: "2025/05/17~05/18",
+                location: "台東杉原灣️",
+                price: "免費入場",
+                notices: [
+                    "請遵守現場秩序",
+                    "禁止攜帶危險物品入場",
+                    "活動期間禁止吸煙",
+                    "請勿在場內拍攝閃光燈"
+                ]
+            },
+            "浪人祭6.5屆": {
+                alias: "Rogue Festival",
+                igLink: "https://www.instagram.com/roguefest/",
+                webLink: "https://www.facebook.com/vagabondfest/?locale=zh_TW",
+                description: "浪人祭是台灣新興的獨立音樂祭，以發掘新銳樂團和推廣獨立音樂為宗旨。活動結合音樂表演、創意市集和工作坊，提供全方位的藝術體驗。",
+                image: "images/festivals/浪人祭6.5屆.png",
+                date: "2025/04/25)",
+                location: "台北市萬華區萬大路底號華中河濱公園",
+                price: "單日票 $2800",
+                notices: [
+                    "部分場館有人數限制",
+                    "請提前30分鐘到場排隊",
+                    "場館內禁止飲食",
+                    "請尊重表演者與其他觀眾"
+                ]
+            },
+            "破風祭": {
+                alias: "Wind Festival",
+                igLink: "https://www.instagram.com/windfest/",
+                webLink: "https://www.facebook.com/prowindfest/",
+                description: "破風祭是台灣最大的音樂與文化盛會之一，結合音樂、藝術、電影和美食，展現台灣的多元文化。活動吸引國內外知名藝人參與，並提供豐富的互動體驗。",
+                image: "images/festivals/破風祭.jpg",
+                date: "2025/04/12~04/13",
+                location: "國立陽明交通大學 光復校區",
+                price: "免費入場",
+                notices: [
+                    "請遵守現場秩序",
+                    "禁止攜帶危險物品入場",
+                    "活動期間禁止吸煙",
+                    "請勿在場內拍攝閃光燈"
+                ]
+            },
+            "羅漢祭": {
+                alias: "Luohan Festival",
+                igLink: "https://www.instagram.com/luohanfest/",
+                webLink: "https://www.facebook.com/events/%E5%9C%B0%E5%88%A9-%E5%B1%B1%E8%B0%B7%E9%9C%B2%E7%91%AA/%E7%BE%85%E6%BC%A2%E7%A5%AD-rakanpsy-%E5%8F%B0%E7%81%A3/1110967600421764/",
+                description: "羅漢祭是台灣最具特色的音樂祭之一，結合山林美景和音樂表演，提供觀眾獨特的視覺和聽覺享受。活動吸引國內外知名藝人參與，並提供豐富的互動體驗。",
+                image: "images/festivals/羅漢祭.jpg",
+                date: "2025/04/03~04/06",
+                location: "南投縣信義鄉地利村-山谷露瑪露營區",
+                price: "單日票 $1,500 / 兩日聯票 $2,800",
+                notices: [
+                    "請遵守現場秩序",
+                    "禁止攜帶危險物品入場",
+                    "活動期間禁止吸煙",
+                    "請勿在場內拍攝閃光燈"
+                ]
+            },
+            "赤聲躁動": {
+                alias: "Red Noise Festival",
+                igLink: "https://www.instagram.com/rednoise/",
+                webLink: "https://www.facebook.com/carnivalfever.tw/",
+                description: "赤聲躁動是台灣新興的獨立音樂祭，以發掘新銳樂團和推廣獨立音樂為宗旨。活動結合音樂表演、創意市集和工作坊，提供全方位的藝術體驗。",
+                image: "images/festivals/赤聲躁動.jpg",
+                date: "2025/05/17～05/18",
+                location: "台中烏日啤酒廠",
+                price: "單日票 $1,320 / 兩日聯票 $1,920",
+                notices: [
+                    "部分場館有人數限制",
+                    "請提前30分鐘到場排隊",
+                    "場館內禁止飲食",
+                    "請尊重表演者與其他觀眾"
+                ]
+            },
+            "阿米斯音樂節": {
+                alias: "Amis Music Festival",
+                igLink: "https://www.instagram.com/amismusicfest/",
+                webLink: "https://www.facebook.com/Amismusicfestival/?locale=zh_TW",
+                description: "阿米斯音樂節是台灣最大的原住民音樂祭之一，結合音樂、文化和藝術，展現台灣原住民的多元文化。活動吸引國內外知名藝人參與，並提供豐富的互動體驗。",
+                image: "images/festivals/阿米斯音樂節.jpg",
+                date: "2025/11/08~11/09",
+                location: "Pacifaran 都蘭鼻＠台東都蘭部落",
+                price: "免費入場",
+                notices: [
+                    "請遵守現場秩序",
+                    "禁止攜帶危險物品入場",
+                    "活動期間禁止吸煙",
+                    "請勿在場內拍攝閃光燈"
+                ]
+            },
+            "雨山祭": {
+                alias: "Rain Mountain Festival",
+                igLink: "https://www.instagram.com/rainmountainfest/",
+                webLink: "https://nccumusicfestival.oen.tw/",
+                description: "雨山祭是台灣最具特色的音樂祭之一，結合山林美景和音樂表演，提供觀眾獨特的視覺和聽覺享受。活動吸引國內外知名藝人參與，並提供豐富的互動體驗。",
+                image: "images/festivals/雨山祭.jpg",
+                date: "2025/03/08",
+                location: "國立政治大學",
+                price: "單日票 $1,500 / 兩日聯票 $2,800",
+                notices: [
+                    "請遵守現場秩序",
+                    "禁止攜帶危險物品入場",
+                    "活動期間禁止吸煙",
+                    "請勿在場內拍攝閃光燈"
+                ]
+            },
+            "霓虹綠洲音樂祭": {
+                alias: "Neon Oasis Music Festival",
+                igLink: "https://www.instagram.com/neonoasisfest/",
+                webLink: "https://www.facebook.com/NeonOasisFest/?locale=zh_TW",
+                description: "霓虹綠洲音樂祭是台灣新興的獨立音樂祭，以發掘新銳樂團和推廣獨立音樂為宗旨。活動結合音樂表演、創意市集和工作坊，提供全方位的藝術體驗。",
+                image: "images/festivals/霓虹綠洲音樂祭.jpg",
+                date: "2025/04/19~04/20",
+                location: "台北萬華 華中露營場",
+                price: "單日票 $1,350 / 兩日聯票 $2,700",
+                notices: [
+                    "部分場館有人數限制",
+                    "請提前30分鐘到場排隊",
+                    "場館內禁止飲食",
+                    "請尊重表演者與其他觀眾"
+                ]
+            },
+            "S2O TAIWAN 潑水音樂節":{
+                alias: "Neon Oasis Music Festival",
+                igLink: "https://www.instagram.com/neonoasisfest/",
+                webLink: "https://www.s2otaiwan.com/",
+                description: "霓虹綠洲音樂祭是台灣新興的獨立音樂祭，以發掘新銳樂團和推廣獨立音樂為宗旨。活動結合音樂表演、創意市集和工作坊，提供全方位的藝術體驗。",
+                image: "images/festivals/S2O TAIWAN 潑水音樂節.jpg",
+                date: "2025/07/12~07/13",
+                location: "台北大佳河濱公園",
+                price: "兩日聯票 $3,400",
+            }
+            }
+            // 可以添加更多音樂祭資料
+        
+
+        // 載入音樂祭資料
+        function loadFestivalData() {
+            if (!festivalName) {
+                alert("未指定音樂祭名稱");
+                window.location.href = "collection-festivals.html";
+                return;
+            }
+
+            const festivalData = festivalDatabase[festivalName];
+            if (!festivalData) {
+                alert("找不到該音樂祭的資料");
+                window.location.href = "collection-festivals.html";
+                return;
+            }
+
+            // 設置基本資訊
+            document.title = festivalName;
+            document.getElementById("festival-name").textContent = festivalName;
+            document.getElementById("ig-link").href = festivalData.igLink;
+            document.getElementById("web-link").href = festivalData.webLink;
+            document.getElementById("festival-description").textContent = festivalData.description;
+            document.getElementById("festival-image").src = festivalData.image;
+            document.getElementById("festival-date").textContent = festivalData.date;
+            document.getElementById("festival-location").textContent = festivalData.location;
+            document.getElementById("festival-price").textContent = festivalData.price;
+            document.getElementById("festival-website").href = festivalData.webLink;
+
+            // 生成演出陣容列表
+            const lineupList = document.getElementById("lineup-list");
+            lineupList.innerHTML = "";
+            festivalData.lineup.forEach(artist => {
+                const li = document.createElement("li");
+                li.textContent = artist;
+                lineupList.appendChild(li);
+            });
+
+            // 生成注意事項列表
+            const noticeList = document.getElementById("notice-list");
+            noticeList.innerHTML = "";
+            festivalData.notices.forEach(notice => {
+                const li = document.createElement("li");
+                li.textContent = notice;
+                noticeList.appendChild(li);
+            });
+
+            // 檢查收藏狀態
+            checkFavoriteStatus();
+        }
+
+        // 檢查收藏狀態
+        function checkFavoriteStatus() {
+            const favorites = JSON.parse(localStorage.getItem('favoriteFestivals')) || [];
+            const favoriteBtn = document.getElementById('favorite-btn');
+            
+            if (favorites.includes(festivalName)) {
+                favoriteBtn.textContent = '❤️ 已收藏';
+                favoriteBtn.classList.add('favorited');
+            } else {
+                favoriteBtn.textContent = '❤️ 收藏';
+                favoriteBtn.classList.remove('favorited');
+            }
+        }
+
+        // 切換收藏狀態
+        function toggleFavorite() {
+            let favorites = JSON.parse(localStorage.getItem('favoriteFestivals')) || [];
+            const index = favorites.indexOf(festivalName);
+            const favoriteBtn = document.getElementById('favorite-btn');
+            
+            if (index === -1) {
+                favorites.push(festivalName);
+                favoriteBtn.textContent = '❤️ 已收藏';
+                favoriteBtn.classList.add('favorited');
+            } else {
+                favorites.splice(index, 1);
+                favoriteBtn.textContent = '❤️ 收藏';
+                favoriteBtn.classList.remove('favorited');
+            }
+            
+            localStorage.setItem('favoriteFestivals', JSON.stringify(favorites));
+        }
+
+        // 綁定事件
+        document.getElementById('favorite-btn').addEventListener('click', toggleFavorite);
+        
+        // 頁面載入時執行
+        window.addEventListener('DOMContentLoaded', loadFestivalData);
+    </script>
+</body>
+</html>

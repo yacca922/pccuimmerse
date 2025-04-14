@@ -1,0 +1,115 @@
+ /* 全局樣式 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000; /* 黑色背景 */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* 頂部資訊樣式 */
+.header {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.header h1 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    margin: 20px 0 25px 0; /* 增加上下邊距，讓「目前擁有」和P50分開 */
+    font-size: 25px;
+}
+
+.points-box {
+    display: inline-block;
+    margin-top: 5px; /* 減少頂部邊距 */
+    padding: 18px 25px;
+    background-color: #222;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+.points-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 讓P和50在點數框內居中 */
+    gap: 45px;
+}
+
+.points-value {
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+/* 選項按鈕樣式 */
+.options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    gap: 25px;
+    margin-top: 45px; 
+    margin-bottom: 40px;
+}
+
+.option-button {
+    padding: 18px 25px;
+    background-color: #222;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center; /* 按鈕文字居中對齊 */
+    transition: background-color 0.3s;
+    width: 100%;
+    min-width: 300px; /* 新增最小寬度 */
+    max-width: 100%; /* 確保不會超出容器 */
+    box-sizing: border-box; /* 確保padding不會影響總寬度 */
+}
+
+.option-button:hover {
+    background-color: #333;
+}
+
+/* 底部導航列 */
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;  /* 平均分布圖示 */
+    background-color: #4B2A2A;         /* 背景顏色 */
+    padding: 30px 0;                /* 上下內邊距 */
+    box-shadow: 0 -2px 5px rgba(238, 255, 2, 0);  /* 加上陰影 */
+}
+
+.fixed-bottom i {
+    font-size: 40px;  /* 設定圖示的大小 */
+    color: #ffffff;      /* 設定圖示顏色 */
+    cursor: pointer;  /* 改變鼠標樣式 */
+    transition: color 0.3s;  /* 加上過渡效果 */
+}
+
+.fixed-bottom i:hover {
+    color: #ffe200;  /* 滑鼠懸停時顏色變化 */
+}

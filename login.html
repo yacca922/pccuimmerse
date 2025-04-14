@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>log in</title>
+    <style>
+        /* 保留原有樣式 */
+        .mb-0 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .row {
+            flex-wrap: wrap;
+            display: flex;
+        }
+
+        /* 新增背景圖片樣式 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("/Users/yuhan/Desktop/底圖.jpg"); /* 替換成圖片的實際路徑 */
+            background-size: cover; /* 圖片覆蓋整個頁面 */
+            background-position: center; /* 圖片置中 */
+            background-repeat: no-repeat; /* 防止背景圖片重複 */
+        }
+
+        /* 新增文字容器樣式 */
+        .overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 高度設置為視窗高度 */
+            color: white; /* 白色文字，與背景形成對比 */
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+        }
+
+        /* 標題樣式 */
+        .overlay h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 段落樣式 */
+        .overlay p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 表單樣式 */
+        .overlay input[type="text"],
+        .overlay input[type="password"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            width: 80%;
+        }
+        .overlay button {
+            padding: 10px 60px;
+            background-color: #ff4b4b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .overlay button:hover {
+            background-color: #e63939;
+        }
+    </style>
+</head>
+<body>    
+    <div class="overlay">
+        <h1>音脈</h1>
+        <p>IMMERSE</p>
+        <!-- 將 action 指定為下一頁的檔案，例如 nextpage.html -->
+        <form action="immerse.html" method="get">
+            <input type="text" placeholder="手機號碼" name="phone">
+            <br>
+            <input type="password" placeholder="密碼" name="password">
+            <br>
+            <div>
+                <input type="checkbox" name="remember">
+                <label for="">記住我</label>        
+            </div>
+            <!-- 按下按鈕時會跳轉到 nextpage.html -->
+            <button type="submit">登入</button>
+        </form>
+    </div>
+</body>
+</html>

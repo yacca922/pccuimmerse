@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北部音樂祭</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* 全局樣式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000; /* 黑色背景 */
+            color: #fff;
+        }
+
+        /* 標題置頂 */
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* 圖片展示區 */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap; /* 自動換行 */
+            justify-content: center;
+            padding: 20px;
+            gap: 20px; /* 每個區塊之間的間距 */
+        }
+
+        /* 圖片和標題區塊 */
+        .gallery a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 200px; /* 每個區塊的寬度 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery a:hover {
+            transform: scale(1.05); /* 放大效果 */
+            box-shadow: 0 6px 10px rgba(255, 255, 0, 0.7);
+        }
+
+        /* 圖片樣式 */
+        .gallery a img {
+            width: 120%; /* 圖片寬度自適應區塊 */
+            height: auto; /* 保持比例 */
+        }
+
+        /* 圖片下的標題 */
+        .gallery a .title {
+            padding: 10px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        /* 底部導航欄 */
+        nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-around;  /* 平均分布圖示 */
+        background-color: #4B2A2A;         /* 背景顏色 */
+        padding: 27px 0;                /* 上下內邊距 */
+        box-shadow: 0 -2px 5px rgba(238, 255, 2, 0);  /* 加上陰影 */
+        }    
+            nav a {
+        font-size: 40px;  /* 設定圖示的大小 */
+        color: #ffffff;      /* 設定圖示顏色 */
+        cursor: pointer;  /* 改變鼠標樣式 */
+        transition: color 0.3s;  /* 加上過渡效果 */
+        }
+        nav a:hover {
+        color: #ffe200; /* 金黃色 */
+        }
+        /* 新增返回按鈕樣式 */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- 頂部標題 -->
+    <div class="header">北部音樂祭</div>
+     <!-- 新增返回按鈕 -->
+     <a href="immerse.html" class="back-btn">← 返回</a>
+
+    <!-- 圖片展示區 -->
+    <div class="gallery">
+        <a href="倉庫音樂祭.html" target="_blank">
+            <img src="images/festivals/倉庫音樂祭.webp" alt="倉庫音樂祭HENDUO MUSIC">
+            <div class="title">倉庫音樂祭HENDUO MUSIC</div>
+        </a>
+        <a href="雨山祭.html" target="_blank">
+            <img src="images/festivals/雨山祭.jpg" alt="雨山祭">
+            <div class="title">雨山祭</div>
+        </a>
+        <a href="破風祭.html" target="_blank">
+            <img src="images/festivals/破風祭.jpg" alt="破風祭">
+            <div class="title">破風祭</div>
+        </a>
+        <a href="浪人祭6.5屆.html" target="_blank">
+            <img src="images/festivals/浪人祭6.5屆.png" alt="浪人祭6.5屆">
+            <div class="title">浪人祭6.5屆</div>
+        </a>
+        <a href="S2O TAIWAN 潑水音樂節.html" target="_blank">
+            <img src="images/festivals/S2O TAIWAN 潑水音樂節.jpg" alt="S2O TAIWAN 潑水音樂節">
+            <div class="title">S2O TAIWAN 潑水音樂節</div>
+        </a>
+        <a href="霓虹綠洲音樂祭.html" target="_blank">
+            <img src="images/festivals/霓虹綠洲音樂祭.jpg" alt="霓虹綠洲音樂祭">
+            <div class="title">霓虹綠洲音樂祭</div>
+        </a>
+        <a href="上岸音樂節.html" target="_blank">
+            <img src="images/festivals/上岸音樂節.png" alt="上岸音樂節">
+            <div class="title">上岸音樂節</div>
+        </a>
+        <!-- 可以添加更多圖片 -->
+    </div>
+
+    <!-- 底部導航欄 -->
+    <nav>
+        <a href="immerse.html"><i class="fas fa-home"></i></a>
+        <a href="音樂祭社群test.html"><i class="fa-solid fa-message"></i></a>
+        <a href="month music.html"><i class="fa-regular fa-calendar-days"></i></a>
+        <a href="collection-main.html"><i class="fas fa-bookmark"></i></a>
+        <a href="mine.html"><i class="fas fa-user"></i></a>
+    </nav>
+</body>
+</html>

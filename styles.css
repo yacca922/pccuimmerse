@@ -1,0 +1,379 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8d5d8;
+    color: white;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+
+.search-bar {
+    width: 90%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    padding-bottom: 60px; /* 預留空間給底部導航 */
+}
+
+.categories {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category {
+    background-color: #d42026;
+    padding: 8px 15px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+}
+
+.featured  {
+        display: flex; /* 使用 Flexbox 排列 */
+        justify-content: flex-start; /* 水平置中 */
+        align-items: center; /* 垂直置中 */
+        gap: 20px; /* 圖片間距 */
+        margin-top: 20px;
+    }
+
+.featured-image {
+    width: 200px !important; /* 設定圖片寬度 */
+    height: auto !important; /* 高度自動調整，保持比例 */
+    border: 2px solid #000; /* 加入黑色邊框 */
+    border-radius: 10px; /* 圓角效果 */
+    margin: 10px; /* 圖片外距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加陰影 */
+    transition: transform 0.3s ease;
+}
+
+.featured-image:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.carousel {
+    display: flex;
+    gap: 30px;
+    overflow-x: 200px;
+}
+
+.carousel-item img {
+    width: 200px;
+    height: 260px;
+    border-radius: 5px;
+}
+
+.footer {
+    background-color: #d42026;
+    padding: 10px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header, .footer {
+    background-color: red;
+    text-align: center;
+    padding: 10px;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.featured {
+    display: flex;
+    gap: 10px;
+}
+
+.featured img {
+    width: 200px;
+    border-radius: 10px;
+}
+
+.festival-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中（如果有高度需求） */
+}
+
+.festival-item {
+    width: 200px;
+    height: 200px;
+    overflow:hidden;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.festival-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display:block
+}
+
+/* 全域樣式 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+/* 容器樣式 */
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+/* 頁面標題 */
+.page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.page-title-container {
+    display: flex;
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中（可選） */
+    width: 100%; /* 確保它能佔滿可用空間 */
+}
+
+
+/* 收藏清單 */
+.favorite-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.favorite-item {
+    position: relative;
+    width: 80%;
+}
+
+.favorite-image {
+    width: 35%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.favorite-label {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 0, 0, 0.8);
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* 底部導航列 */
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;  /* 平均分布圖示 */
+    background-color: #4B2A2A;         /* 背景顏色 */
+    padding: 30px 0;                /* 上下內邊距 */
+    box-shadow: 0 -2px 5px rgba(238, 255, 2, 0);  /* 加上陰影 */
+}
+
+.fixed-bottom i {
+    font-size: 40px;  /* 設定圖示的大小 */
+    color: #ffffff;      /* 設定圖示顏色 */
+    cursor: pointer;  /* 改變鼠標樣式 */
+    transition: color 0.3s;  /* 加上過渡效果 */
+}
+
+.fixed-bottom i:hover {
+    color: #ffe200;  /* 滑鼠懸停時顏色變化 */
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+}
+
+.nav-item.active {
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+}
+
+/* Reset NORTH FESTIVAL */
+body, h1, p, img, a, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000; /* 背景黑色 */
+    color: #fff; /* 字體白色 */
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #000;
+    border-bottom: 1px solid #444;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+.page-title-container {
+    display: flex;
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中（可選） */
+    width: 100%; /* 確保它能佔滿可用空間 */
+}
+
+.back-button, .bookmark-button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Content */
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 15px;
+}
+
+.event-card {
+    width: calc(50% - 10px); /* 每個卡片占50%寬度減去間距 */
+    text-align: center;
+    background-color: #111;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.event-image {
+    width: 40%;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.event-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color:red;
+    border-top: 1px solid #444;
+    padding: 10px 0;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-item {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.favorite-item {
+    cursor: pointer; /* 讓滑鼠指針變成手形 */
+    transition: transform 0.3s ease; /* 添加懸停動畫 */
+}
+
+.favorite-item:hover {
+    transform: scale(1.05); /* 懸停時輕微放大 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 添加陰影效果 */
+}
+.profile-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-top: 10px;  /* 新增這行，讓按鈕往下移動 */
+    object-fit: cover;
+    border: 2px solid red;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    /* 其他樣式保持不變 */
+    position: relative;
+    top: 20px;  /* 往下移動5像素 */
+    
+}
+.profile-circle:hover {
+    transform: scale(1.1);
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏的音樂祭</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .collection-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .collection-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .collection-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .collection-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid #4a4a4a;
+        }
+        .collection-item p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        .empty-message {
+            text-align: center;
+            padding: 50px;
+            color: #888;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="history.back()">← 返回</button>
+        <h1>收藏的樂團</h1>
+    </div>
+
+    <div id="collection-items" class="collection-container">
+        <!-- 收藏項目將在這裡動態生成 -->
+    </div>
+    <div id="empty-message" class="empty-message" style="display: none;">
+        尚未收藏任何音樂祭
+    </div>
+
+    <script>
+        // 載入收藏的音樂祭
+        function loadFavoriteFestivals() {
+            const container = document.getElementById('collection-items');
+            const emptyMessage = document.getElementById('empty-message');
+            const favorites = JSON.parse(localStorage.getItem('favoriteFestivals')) || [];
+            
+            container.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                emptyMessage.style.display = 'block';
+                return;
+            }
+            
+            emptyMessage.style.display = 'none';
+            
+            favorites.forEach(festival => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'collection-item';
+                itemElement.innerHTML = `
+                    <img src="images/${festival}.png" alt="${festival}">
+                    <p>${festival}</p>
+                `;
+                itemElement.addEventListener('click', () => {
+                    // 點擊後跳轉到對應的音樂祭介紹頁面
+                    window.location.href = `festival-${festival}.html`;
+                });
+                container.appendChild(itemElement);
+            });
+        }
+        
+        // 頁面載入時顯示收藏的音樂祭
+        window.addEventListener('DOMContentLoaded', loadFavoriteFestivals);
+    </script>
+</body>
+</html>

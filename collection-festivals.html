@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏的音樂祭</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);}
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            transition: all 0.3s;
+        }
+        .nav-button.active {
+            color: #ff4757;
+            font-weight: bold;
+        }
+        .collection-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .collection-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .collection-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .collection-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 0; /* 修改為0，從圓形變為方形 */
+            margin-bottom: 10px;
+            border: 3px solid #4a4a4a;
+            border-radius: 5px; /* 輕微圓角 */
+        }
+        .collection-item p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+        .empty-message {
+            text-align: center;
+            padding: 50px;
+            color: #888;
+            font-size: 18px;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="window.location.href='collection-main.html'">← 返回</button>
+        <h1>收藏的音樂祭</h1>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="window.location.href='collection-festivals.html'">音樂祭</button>
+        <button class="nav-button" onclick="window.location.href='collection-bands.html'">樂團</button>
+    </div>
+
+    <div class="collection-container" id="festivals-container">
+        <!-- 音樂祭收藏項目將在這裡動態生成 -->
+    </div>
+    <div id="no-festivals" class="empty-message" style="display: none;">
+        尚未收藏任何音樂祭
+    </div>
+
+    <script>
+        // 改良版的圖片載入函數
+        function loadFestivalImage(festivalName) {
+            const formats = ['webp', 'jpg', 'png']; // 嘗試的格式順序
+            let imgElement = document.createElement('img');
+            imgElement.alt = festivalName;
+            
+            // 設定所有樣式
+            imgElement.style.width = '100%';
+            imgElement.style.height = '180px';
+            imgElement.style.objectFit = 'cover';
+            // 其他樣式...
+            
+            let currentFormat = 0;
+            
+            function tryNextFormat() {
+                if (currentFormat < formats.length) {
+                    imgElement.src = `images/festivals/${festivalName}.${formats[currentFormat]}`;
+                    currentFormat++;
+                } else {
+                    imgElement.src = 'images/default-festival.jpg';
+                }
+            }
+            
+            imgElement.onerror = tryNextFormat;
+            tryNextFormat(); // 開始嘗試第一種格式
+            
+            return imgElement;
+        }
+
+        // 修改後的載入函數
+        function loadFestivals() {
+            const container = document.getElementById('festivals-container');
+            const emptyMessage = document.getElementById('no-festivals');
+            const favorites = JSON.parse(localStorage.getItem('favoriteFestivals')) || [];
+            
+            container.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                emptyMessage.style.display = 'block';
+                return;
+            }
+            
+            emptyMessage.style.display = 'none';
+            
+            favorites.forEach(festival => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'collection-item';
+                
+                // 使用改良的圖片載入函數
+                const imgElement = loadFestivalImage(festival);
+                const titleElement = document.createElement('p');
+                titleElement.textContent = festival;
+                
+                itemElement.appendChild(imgElement);
+                itemElement.appendChild(titleElement);
+                
+                itemElement.addEventListener('click', () => {
+                    window.location.href = `festival.html?name=${encodeURIComponent(festival)}`;
+                });
+                
+                container.appendChild(itemElement);
+            });
+        }
+        
+        window.addEventListener('DOMContentLoaded', loadFestivals);
+    </script>
+</body>
+</html>

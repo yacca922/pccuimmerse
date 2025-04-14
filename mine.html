@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人設定</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* 全局樣式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            padding-bottom: 70px; /* 為底部導航留空間 */
+        }
+        
+        /* Header 樣式 */
+        .header {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .username {
+            color: #ff4757;
+        }
+        
+        /* 點數盒子樣式 */
+        .points-box {
+            display: inline-flex;
+            align-items: center;
+            background-color: #333;
+            padding: 18px 25px;
+            border-radius: 20px;
+            margin-top: 10px;
+            gap: 35px;
+        }
+        
+        .points-icon {
+            background-color: #ff4757;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+           
+        }
+        .points-value {
+    font-weight: bold;
+    color: #ffcc00;
+        }
+        
+        /* 選項按鈕樣式 */
+        .options {
+            display: flex;
+            flex-direction: column; /* 改為垂直排列 */
+            align-items: center; /* 水平居中 */
+            gap: 25px; /* 按鈕間距 */
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .option-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px 25px; /* 調整按鈕大小 */
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            width: 80%; /* 設定按鈕寬度 */
+            max-width: 300px; /* 最大寬度 */
+            text-align: center; /* 文字居中 */
+        }
+        
+        .option-button:hover {
+            background-color: #ff4757;
+        }
+        
+        /* 內容區域樣式 */
+        .content-box {
+            display: none;
+            background-color: #fff;
+            color: #000;
+            padding: 15px;
+            margin: 30px auto;
+            border-radius: 10px;
+            max-width: 700px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        /* 底部導航列 */
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;  /* 平均分布圖示 */
+    background-color: #4B2A2A;         /* 背景顏色 */
+    padding: 30px 0;                /* 上下內邊距 */
+    box-shadow: 0 -2px 5px rgba(238, 255, 2, 0);  /* 加上陰影 */
+}
+
+.fixed-bottom i {
+    font-size: 40px;  /* 設定圖示的大小 */
+    color: #ffffff;      /* 設定圖示顏色 */
+    cursor: pointer;  /* 改變鼠標樣式 */
+    transition: color 0.3s;  /* 加上過渡效果 */
+}
+
+.fixed-bottom i:hover {
+    color: #ffe200;  /* 滑鼠懸停時顏色變化 */
+}
+
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <div class="header">
+            <h1>哈囉，<span class="username">XXX</span>。</h1>
+            <p>目前擁有</p>
+            <div class="points-box">
+                <div class="points-icon">P</div>
+                <span class="points-value">50</span>
+            </div>
+        </div>
+
+        <!-- Options -->
+        <div class="options">
+            <button class="option-button" data-target="notify-text">版權聲明</button>
+            <button class="option-button" data-target="privacy-text">隱私權聲明</button>
+            <button class="option-button" data-target="terms-text">問題回報</button>
+            <button class="option-button" onclick="window.location.href='https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/03/08/14/20250308144840-KZKD5SFB.json'">AI 機器人</button>
+            <button class="option-button" data-target="instagram-text">INSTAGRAM</button>
+            <button class="option-button" onclick="window.location.href='aboutus.html'">關於我們</button>
+        </div>
+
+        <!-- 內容區域 -->
+        <div id="notify-text" class="content-box">
+            <p>本網頁的資訊及圖片都是由成員在網路上查找，如有任何冒犯，都歡迎大家私訊我們反應，我們會立即處理。</p>
+        </div>
+        <div id="privacy-text" class="content-box">
+            <p>本應用程式重視您的隱私，所有個人資料將受到保護，隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。</p>
+        </div>
+        <div id="terms-text" class="content-box">
+            <p>電子郵件rebecca30048350@gmail.com</p>
+        </div>
+
+        <div id="instagram-text" class="content-box">
+            <p>關注我們的Instagram :<a href="https://www.instagram.com/____immerse____/" target="_blank">____immerse____</a>，可以獲取最新活動及樂團資訊。</p>
+        </div>
+
+        <!-- Footer Navigation -->
+        <nav class="fixed-bottom">
+            <a href="immerse.html"><i class="fas fa-home"></i></a>
+            <a href="音樂祭社群test.html"><i class="fa-solid fa-message"></i></a>
+            <a href="month music.html"><i class="fa-regular fa-calendar-days"></i></a>
+            <a href="collection-main.html"><i class="fas fa-bookmark"></i></a>
+            <a href="mine.html"><i class="fas fa-user"></i></a>
+        </nav>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.option-button[data-target]');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const contentBox = document.getElementById(targetId);
+
+                const isVisible = contentBox.style.display === 'block';
+
+                // 如果目前是顯示狀態，就隱藏
+                if (isVisible) {
+                    contentBox.style.display = 'none';
+                } else {
+                    // 隱藏所有其他內容
+                    document.querySelectorAll('.content-box').forEach(box => {
+                        box.style.display = 'none';
+                    });
+
+                    // 顯示目前選中的
+                    contentBox.style.display = 'block';
+
+                    // 滑動到內容區塊
+                    contentBox.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

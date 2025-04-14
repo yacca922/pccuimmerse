@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我們的團隊</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #000000; /* 改為黑色背景 */
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .team-description {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .member-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 280px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .member-image {
+            height: 280px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .member-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .member-role {
+            color: #6a11cb;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .team-members {
+                gap: 20px;
+            }
+            
+            .member-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+         /* 新增返回按鈕樣式 */
+         .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+     <!-- 新增返回按鈕 -->
+     <a href="mine.html" class="back-btn">← 返回</a>
+    <div class="container">
+        <header>
+            <h1>音脈 IMMERSE 團隊</h1>
+            <p class="team-description">致力於打造一個屬於音樂祭愛好者使用的平台。</p>
+        </header>
+        
+        <div class="team-members">
+            <!-- 組長兼後端製作:洪郁涵 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <!-- 替換為洪郁涵的照片 -->
+                    <span> <img src="main/洪郁涵.png" alt="洪郁涵"></span>
+                    <!-- <img src="main/洪.jpg" alt="洪郁涵"> -->
+                </div>
+                <div class="member-info">
+                    <div class="member-name">洪郁涵</div>
+                    <div class="member-role">組長兼後製</div>
+                    <p>負責團隊所有進度監督和後端開發。</p>
+                </div>
+            </div>
+            
+            <!-- 美術設計:周蘋勻 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <!-- 替換為周蘋勻的照片 -->
+                    <span><img src="main/周蘋勻.png" alt="周蘋勻"></span>
+                    <!-- <img src="zhou_pingyun.jpg" alt="周蘋勻"> -->
+                </div>
+                <div class="member-info">
+                    <div class="member-name">周蘋勻</div>
+                    <div class="member-role">美術設計</div>
+                    <p>負責所有視覺設計工作，建立平台形象與吉祥物。</p>
+                </div>
+            </div>
+            
+            <!-- 後端製作:張雅涵 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <!-- 替換為張雅涵的照片 -->
+                    <span><img src="main/張雅涵.png" alt="張雅涵"></span>
+                    <!-- <img src="zhang_yahan.jpg" alt="張雅涵"> -->
+                </div>
+                <div class="member-info">
+                    <div class="member-name">張雅涵</div>
+                    <div class="member-role">後端製作</div>
+                    <p>負責系統架構和後端開發，確保程序的穩定性和性能。</p>
+                </div>
+            </div>
+            
+            <!-- 公關推廣:柯珮瑄 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <!-- 替換為柯珮瑄的照片 -->
+                    <span><img src="main/柯珮萱.png" alt="柯珮瑄"></span>
+                    <!-- <img src="ke_peixuan.jpg" alt="柯珮瑄"> -->
+                </div>
+                <div class="member-info">
+                    <div class="member-name">柯珮萱</div>
+                    <div class="member-role">公關推廣</div>
+                    <p>負責對外溝通與洽談贊助，建立良好的公關形象。</p>
+                </div>
+            </div>
+            
+            <!-- 社群經營:謝宥嫺 -->
+            <div class="member-card">
+                <div class="member-image">
+                    <!-- 替換為謝宥嫺的照片 -->
+                    <span><img src="main/謝宥嫺.png" alt="謝宥嫺"></span>
+                    <!-- <img src="xie_youxian.jpg" alt="謝宥嫺"> -->
+                </div>
+                <div class="member-info">
+                    <div class="member-name">謝宥嫺</div>
+                    <div class="member-role">社群經營</div>
+                    <p>負責社交媒體管理與內容創作，提升品牌影響力。</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 我們的團隊 版權所有</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音樂祭社群</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .post-creator {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #post-content {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: none;
+        }
+        #post-submit {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .posts-container {
+            display: grid;
+            gap: 20px;
+        }
+        .post-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .post-content {
+            margin-bottom: 15px;
+            white-space: pre-line;
+        }
+        .post-meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>音樂祭討論區</h1>
+    
+    <div class="post-creator">
+        <textarea id="post-content" placeholder="分享你的音樂祭體驗..."></textarea>
+        <button id="post-submit">發布貼文</button>
+    </div>
+    
+    <div id="posts-container" class="posts-container">
+        <!-- 貼文將在這裡動態生成 -->
+    </div>
+
+    <script>
+        // 儲存和載入貼文的函數
+        function savePosts(posts) {
+            localStorage.setItem('musicFestivalPosts', JSON.stringify(posts));
+        }
+        
+        function loadPosts() {
+            const posts = localStorage.getItem('musicFestivalPosts');
+            return posts ? JSON.parse(posts) : [];
+        }
+        
+        // 顯示所有貼文
+        function renderPosts() {
+            const postsContainer = document.getElementById('posts-container');
+            const posts = loadPosts();
+            
+            postsContainer.innerHTML = '';
+            
+            if (posts.length === 0) {
+                postsContainer.innerHTML = '<p>尚無貼文，成為第一個發文的人吧！</p>';
+                return;
+            }
+            
+            posts.forEach((post, index) => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post-card';
+                postElement.innerHTML = `
+                    <div class="post-meta">
+                        <span>匿名用戶 • ${new Date(post.timestamp).toLocaleString()}</span>
+                    </div>
+                    <div class="post-content">${post.content}</div>
+                    <button onclick="deletePost(${index})">刪除</button>
+                `;
+                postsContainer.appendChild(postElement);
+            });
+        }
+        
+        // 新增貼文
+        document.getElementById('post-submit').addEventListener('click', () => {
+            const content = document.getElementById('post-content').value.trim();
+            if (!content) return;
+            
+            const posts = loadPosts();
+            posts.unshift({
+                content,
+                timestamp: Date.now()
+            });
+            
+            savePosts(posts);
+            document.getElementById('post-content').value = '';
+            renderPosts();
+        });
+        
+        // 刪除貼文
+        function deletePost(index) {
+            const posts = loadPosts();
+            posts.splice(index, 1);
+            savePosts(posts);
+            renderPosts();
+        }
+        
+        // 初始化頁面
+        window.addEventListener('DOMContentLoaded', renderPosts);
+    </script>
+</body>
+</html>

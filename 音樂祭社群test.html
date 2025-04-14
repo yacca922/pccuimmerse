@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音樂祭社群討論區</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .post-creator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #post-content {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: none;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+        .post-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .post-button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .post-button:hover {
+            background-color: #ff6b81;
+        }
+        .posts-container {
+            display: grid;
+            gap: 20px;
+        }
+        .post-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            word-break: break-word; /* 強制長單詞或URL換行 */
+            overflow-wrap: break-word; /* 防止內容溢出 */
+        }
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        .post-content {
+            margin-bottom: 15px;
+            white-space: pre-line;
+            line-height: 1.6;
+        }
+        .post-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            margin-top: 10px;
+            max-width: 100%; /* 確保圖片不超出容器 */
+            height: auto; /* 保持比例 */
+        }
+        .delete-button {
+            background: none;
+            border: none;
+            color: #ff4757;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .user-section {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        .image-upload {
+            margin-bottom: 15px;
+        }
+        .upload-label {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .upload-label:hover {
+            background-color: #e0e0e0;
+        }
+        .image-preview {
+            margin-top: 10px;
+        }
+        .preview-image {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: block;
+        }
+        .remove-image {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            cursor: pointer;
+        }
+        .image-preview-container {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .like-section {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .like-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .like-button.liked {
+            color: #ff4757;
+            transform: scale(1.1);
+        }
+        
+        .like-count {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .comment-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .comments-section {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .comment {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comment-author {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .comment-content {
+            margin-top: 3px;
+        }
+        
+        .comment-form {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .comment-input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        
+        .comment-submit {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0 15px;
+            cursor: pointer;
+        }
+        
+        .comment-count {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* 新增的動畫效果 */
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+        * {
+    box-sizing: border-box; /* 確保padding和border包含在元素寬度內 */
+}
+        
+        .like-button.liked {
+            animation: heartBeat 0.7s;
+        }
+        /* 新增返回按鈕樣式 */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- 新增返回按鈕 -->
+    <a href="immerse.html" class="back-btn">← 返回</a>
+    <div class="app-header">
+        <h1>🎵 音樂祭社群討論區</h1>
+    </div>
+
+    <div class="user-section">
+        <span id="current-user">訪客</span>
+        <button id="login-button" class="post-button">登入</button>
+    </div>
+
+    <div class="post-creator">
+        <textarea id="post-content" placeholder="分享你的音樂祭體驗..."></textarea>
+        
+        <div class="image-upload">
+            <label for="post-image" class="upload-label">
+                <span>📷 添加圖片</span>
+                <input type="file" id="post-image" accept="image/*" style="display: none;">
+            </label>
+            <div id="image-preview" class="image-preview"></div>
+        </div>
+        
+        <div class="post-actions">
+            <button id="post-submit" class="post-button">發布貼文</button>
+        </div>
+    </div>
+
+    <div id="posts-container" class="posts-container">
+        <!-- 貼文將在這裡動態生成 -->
+    </div>
+    
+
+    <script>
+        // 模擬當前用戶
+        let currentUser = {
+            id: 'guest_' + Math.random().toString(36).substr(2, 9),
+            name: '訪客'
+        };
+        
+        // 模擬貼文數據
+        let posts = [
+            {
+                id: 'post1',
+                author: 'jun_8950',
+                content: '剛參加完大港開唱，現場氣氛超棒！',
+                imageUrl: '',
+                likes: 15,
+                likedBy: [],
+                comments: [
+                    { author: '樂迷A', content: '我也在現場，真的超high!' },
+                    { author: '樂迷B', content: '明年一定要再去！' }
+                ],
+                timestamp: new Date(Date.now() - 86400000)
+            },
+            {
+                id: 'post2',
+                author: '搖滾魂',
+                content: '推薦大家去聽草東沒有派對的現場，能量爆表！',
+                imageUrl: 'main/清單音樂祭.jpg',
+                likes: 8,
+                likedBy: [],
+                comments: [],
+                timestamp: new Date(Date.now() - 77900000)
+            },
+            {
+                id: 'post3',
+                author: 'eveis0456',
+                content: '看完大港、台灣祭後，下一個音樂祭要去哪?',
+                imageUrl: '',
+                likes: 10,
+                likedBy: [],
+                comments: [ { author: 'luvvaamiii', content: '6/7要來府城狂歡嗎' },
+                { author: 'w.lin', content: '想去赤聲躁動！' }],
+                timestamp: new Date(Date.now() - 3600000)
+            },
+            {
+                id: 'post4',
+                author: 'selina56c',
+                content: '認真問有人嘗試一個人去音樂祭嗎',
+                imageUrl: '',
+                likes: 20,
+                likedBy: [],
+                comments: [ { author: 'li_3602', content: '其實一個人去蠻爽的，想聽什麼聽什麼  想休息就休息' },
+                { author: 'shi._.', content: '有！跟朋友去但也是分開自己聽' },
+                { author: 'yuxml', content: '一個人爽聽團' }],
+                timestamp: new Date(Date.now() - 900000)
+            },
+            {
+                id: 'post5',
+                author: 'peggy_chen',
+                content: '去完台灣祭突然想去當志工了,暑假我記得有台秋。去完台灣祭禿然想去當志工了,暑假我記得有台秋。',
+                imageUrl: '',
+                likes: 32,
+                likedBy: [],
+                comments: [ { author: 'mn_32', content: '目前當過五六場志工，很累但很好玩，我只能說志工只有零次跟無數次' },
+                { author: 'summer_h', content: '當年做過兩年的志工路過~兩年都在服務台，蠻好玩的!' },
+                { author: 'wendychen', content: '很有趣，可以體驗看看' },
+                {author: 'wendychen', content: '超讚  可以認識很多有趣的人' }],
+                timestamp: new Date(Date.now() - 826000)
+            }
+        ];
+        
+        // DOM元素
+        const postsContainer = document.getElementById('posts-container');
+        const postContent = document.getElementById('post-content');
+        const postSubmit = document.getElementById('post-submit');
+        const postImage = document.getElementById('post-image');
+        const imagePreview = document.getElementById('image-preview');
+        const loginButton = document.getElementById('login-button');
+        const currentUserSpan = document.getElementById('current-user');
+        
+        // 初始化
+        function init() {
+            renderPosts();
+            setupEventListeners();
+        }
+        
+        // 渲染貼文
+        function renderPosts() {
+            postsContainer.innerHTML = '';
+            
+            // 按時間排序（最新的在前）
+            const sortedPosts = [...posts].sort((a, b) => b.timestamp - a.timestamp);
+            
+            sortedPosts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post-card';
+                postElement.dataset.postId = post.id;
+                
+                const isLiked = post.likedBy.includes(currentUser.id);
+                const likeButtonClass = isLiked ? 'like-button liked' : 'like-button';
+                
+                postElement.innerHTML = `
+                    <div class="post-header">
+                        <span>${post.author}</span>
+                        <span>${formatDate(post.timestamp)}</span>
+                    </div>
+                    <div class="post-content">${post.content}</div>
+                    ${post.imageUrl ? `<img src="${post.imageUrl}" class="post-image" alt="貼文圖片">` : ''}
+                    <div class="post-footer">
+                        <div class="like-section">
+                            <button class="${likeButtonClass}" data-post-id="${post.id}">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <span class="like-count">${post.likes}</span>
+                        </div>
+                        <button class="comment-button">
+                            <i class="fas fa-comment"></i>
+                            <span class="comment-count">${post.comments.length}</span>
+                        </button>
+                    </div>
+                    <div class="comments-section">
+                        ${post.comments.map(comment => `
+                            <div class="comment">
+                                <div>
+                                    <span class="comment-author">${comment.author}</span>
+                                </div>
+                                <div class="comment-content">${comment.content}</div>
+                            </div>
+                        `).join('')}
+                        <form class="comment-form" data-post-id="${post.id}">
+                            <input type="text" class="comment-input" placeholder="寫下留言...">
+                            <button type="submit" class="comment-submit">發布</button>
+                        </form>
+                    </div>
+                `;
+                
+                postsContainer.appendChild(postElement);
+            });
+        }
+        
+        // 設置事件監聽器
+        function setupEventListeners() {
+            // 發布貼文
+            postSubmit.addEventListener('click', createPost);
+            
+            // 圖片上傳預覽
+            postImage.addEventListener('change', handleImageUpload);
+            
+            // 模擬登入
+            loginButton.addEventListener('click', () => {
+                currentUser = {
+                    id: 'user_' + Math.random().toString(36).substr(2, 9),
+                    name: '用戶' + Math.floor(Math.random() * 1000)
+                };
+                currentUserSpan.textContent = currentUser.name;
+                renderPosts();
+            });
+            
+            // 動態生成的元素使用事件委派
+            postsContainer.addEventListener('click', (e) => {
+                // 按讚功能
+                if (e.target.closest('.like-button') || e.target.classList.contains('fa-heart')) {
+                    const likeButton = e.target.classList.contains('like-button') ? 
+                        e.target : e.target.closest('.like-button');
+                    const postId = likeButton.dataset.postId;
+                    toggleLike(postId);
+                }
+                
+                // 顯示/隱藏評論區
+                if (e.target.closest('.comment-button') || e.target.classList.contains('fa-comment')) {
+                    const postCard = e.target.closest('.post-card');
+                    const commentsSection = postCard.querySelector('.comments-section');
+                    commentsSection.style.display = commentsSection.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+            
+            // 提交評論
+            postsContainer.addEventListener('submit', (e) => {
+                if (e.target.classList.contains('comment-form')) {
+                    e.preventDefault();
+                    const postId = e.target.dataset.postId;
+                    const commentInput = e.target.querySelector('.comment-input');
+                    const commentText = commentInput.value.trim();
+                    
+                    if (commentText) {
+                        addComment(postId, commentText);
+                        commentInput.value = '';
+                    }
+                }
+            });
+        }
+        
+        // 創建新貼文
+        function createPost() {
+            const content = postContent.value.trim();
+            if (!content) return;
+            
+            const newPost = {
+                id: 'post_' + Date.now(),
+                author: currentUser.name,
+                content: content,
+                imageUrl: '',
+                likes: 0,
+                likedBy: [],
+                comments: [],
+                timestamp: new Date()
+            };
+            
+            // 如果有圖片預覽，添加圖片URL（這裡只是模擬）
+            const previewImg = imagePreview.querySelector('img');
+            if (previewImg) {
+                newPost.imageUrl = previewImg.src;
+            }
+            
+            posts.unshift(newPost);
+            renderPosts();
+            
+            // 清空表單
+            postContent.value = '';
+            imagePreview.innerHTML = '';
+        }
+        
+        // 處理圖片上傳
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                imagePreview.innerHTML = `
+                    <div class="image-preview-container">
+                        <img src="${event.target.result}" class="preview-image">
+                        <button class="remove-image" onclick="removePreviewImage()">×</button>
+                    </div>
+                `;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // 移除圖片預覽
+        function removePreviewImage() {
+            imagePreview.innerHTML = '';
+            postImage.value = '';
+        }
+        
+        // 切換按讚狀態
+        function toggleLike(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+            
+            const userIndex = post.likedBy.indexOf(currentUser.id);
+            
+            if (userIndex === -1) {
+                // 按讚
+                post.likedBy.push(currentUser.id);
+                post.likes++;
+            } else {
+                // 取消讚
+                post.likedBy.splice(userIndex, 1);
+                post.likes--;
+            }
+            
+            renderPosts();
+        }
+        
+        // 添加評論
+        function addComment(postId, commentText) {
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+            
+            post.comments.push({
+                author: currentUser.name,
+                content: commentText
+            });
+            
+            renderPosts();
+        }
+        
+        // 格式化日期
+        function formatDate(date) {
+            const now = new Date();
+            const diff = now - date;
+            
+            // 少於1分鐘
+            if (diff < 60000) return '剛剛';
+            
+            // 少於1小時
+            if (diff < 3600000) return `${Math.floor(diff / 60000)}分鐘前`;
+            
+            // 今天
+            if (date.toDateString() === now.toDateString()) {
+                return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+            
+            // 昨天
+            const yesterday = new Date(now);
+            yesterday.setDate(yesterday.getDate() - 1);
+            if (date.toDateString() === yesterday.toDateString()) {
+                return '昨天 ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+            
+            // 更早
+            return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+        }
+        
+        // 初始化應用
+        init();
+    </script>
+</body>
+</html>

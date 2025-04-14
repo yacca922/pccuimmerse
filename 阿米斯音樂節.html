@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東浪嘉年華</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px; /* 為按鈕留出空間 */
+        }
+
+        img {
+            width: 20%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .details {
+            margin-top: 20px;
+        }
+
+        .details p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff0000;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .buttons a:hover {
+            background-color: #FFA500;
+        }
+        
+        /* 新增收藏按鈕樣式 */
+        .favorite-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        
+        .favorite-btn:hover {
+            background-color: #ff6b81;
+            transform: scale(1.05);
+        }
+        
+        .favorite-btn.favorited {
+            background-color: #2ed573;
+        }
+        
+        .favorite-btn.favorited:hover {
+            background-color: #7bed9f;
+        }
+        
+        /* 新增返回按鈕樣式 */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- 新增返回按鈕 -->
+    <a href="east.html" class="back-btn">← 返回</a>
+    
+    <!-- 收藏按鈕 -->
+    <button id="favorite-btn" class="favorite-btn">❤️ 收藏</button>
+
+    <div class="container">
+        <h1>東浪嘉年華</h1>
+        <img src="images/festivals/阿米斯音樂節.jpg" alt="阿米斯音樂節">
+        <div class="details">
+            <p>地點：Pacifaran 都蘭鼻＠台東都蘭部落</p>
+            <p>演出日期：2025/11/08~11/09</p>
+            <p>售票時間：免費入場、沒有卡司</p>
+        </div>
+        <div class="buttons">
+            <a href="#" target="_blank">購票連結</a>
+            <a href="#" target="_blank">卡司列表</a>
+        </div>
+    </div>
+
+    <script>
+        // 獲取收藏按鈕元素
+        const favoriteBtn = document.getElementById('favorite-btn');
+        const festivalName = '阿米斯音樂節'; // 音樂祭名稱
+        
+        // 初始化檢查收藏狀態
+        function checkFavoriteStatus() {
+            const favorites = JSON.parse(localStorage.getItem('favoriteFestivals')) || [];
+            if (favorites.includes(festivalName)) {
+                favoriteBtn.textContent = '❤️ 已收藏';
+                favoriteBtn.classList.add('favorited');
+            } else {
+                favoriteBtn.textContent = '❤️ 收藏';
+                favoriteBtn.classList.remove('favorited');
+            }
+        }
+        
+        // 切換收藏狀態
+        function toggleFavorite() {
+            let favorites = JSON.parse(localStorage.getItem('favoriteFestivals')) || [];
+            const index = favorites.indexOf(festivalName);
+            
+            if (index === -1) {
+                // 添加到收藏
+                favorites.push(festivalName);
+                favoriteBtn.textContent = '❤️ 已收藏';
+                favoriteBtn.classList.add('favorited');
+            } else {
+                // 從收藏移除
+                favorites.splice(index, 1);
+                favoriteBtn.textContent = '❤️ 收藏';
+                favoriteBtn.classList.remove('favorited');
+            }
+            
+            // 保存到本地存儲
+            localStorage.setItem('favoriteFestivals', JSON.stringify(favorites));
+            
+            // 顯示操作反饋
+            const message = index === -1 ? '已收藏阿米斯音樂節' : '已取消收藏阿米斯音樂節';
+            alert(message);
+        }
+        
+        // 綁定點擊事件
+        favoriteBtn.addEventListener('click', toggleFavorite);
+        
+        // 頁面載入時檢查收藏狀態
+        window.addEventListener('DOMContentLoaded', checkFavoriteStatus);
+    </script>
+</body>
+</html>

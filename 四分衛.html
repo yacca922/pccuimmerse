@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四分衛</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        /* 頁首 */
+        .header {
+            width: 100%;
+            text-align: center;
+            position: relative;
+            padding-top: 20px;
+        }
+        .ig-icon {
+            position: absolute;
+            top: 2px;
+            right: 20px;
+        }
+        .ig-icon img {
+            width: 40px;
+            height: 40px;
+        }
+        /* 主要內容 */
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* 讓圖片和文字遠離中間 */
+            max-width: 90%;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .image-container {
+            flex: 1; /* 讓圖片區塊自適應 */
+            display: flex;
+            justify-content: flex-start; /* 貼近左側 */
+        }
+        .image-container img {
+            width: 600px;
+            border-radius: 10px;
+        }
+        .text-container {
+            flex: 1; /* 讓文字區塊自適應 */
+            max-width: 600px;
+            text-align: justify;
+            font-size: 25px;
+            line-height: 1.8;
+            display: flex;
+            justify-content: flex-end; /* 貼近右側 */
+        }
+        h1 {
+            font-size: 35px;
+            margin: 0;
+        }
+        h2 {
+            font-size: 22px;
+            margin: 10px 0;
+            text-align: center;
+        }    
+        /* 新增收藏按鈕樣式 */
+        .favorite-btn {
+            position: fixed;
+            top: 20px;
+            right: 100px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        
+        .favorite-btn:hover {
+            background-color: #ff6b81;
+            transform: scale(1.05);
+        }
+        
+        .favorite-btn.favorited {
+            background-color: #2ed573;
+        }
+        
+        .favorite-btn.favorited:hover {
+            background-color: #7bed9f;
+        }
+        
+        /* 新增返回按鈕樣式 */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <div class="header">
+         <!-- 新增返回按鈕 -->
+     <a href="other.html" class="back-btn">← 返回</a>
+    
+     <!-- 收藏按鈕 -->
+     <button id="favorite-btn" class="favorite-btn">❤️ 收藏</button>
+
+        <h1>四分衛</h1>
+        <a href="https://www.instagram.com/quarterback_band/" class="ig-icon">
+            <img src="main/ig-logo-vector-23.jpg" alt="IG">
+        </a>
+    </div>
+
+    <h2>Quarterback</h2>
+
+    <!-- 主要內容 -->
+    <div class="content">
+        <!-- 圖片 -->
+        <div class="image-container">
+            <img src="images/bands/四分衛.jpg" alt="海岸乾杯">
+        </div>
+        
+        <!-- 文字介紹 -->
+        <div class="text-container">
+            <p>
+                成立於1995年（前身「Hexagon六角形」於1993年成立），團員為吉他手兼團長虎神、主唱阿山、吉他手小郭。曾入圍第 11 屆、13 屆、 15 屆金曲獎最佳樂團；獲得金音獎最佳樂團、 最佳現場獎，及最佳搖滾單曲獎〈一首搖滾上月球〉；〈I Love You〉獲 50 屆金馬獎最佳原創歌曲。
+        </div>
+    </div>
+    <script>
+        // 獲取收藏按鈕元素
+        const favoriteBtn = document.getElementById('favorite-btn');
+        const bandName = '四分衛'; // 從URL參數或其他方式獲取樂團名稱
+        
+        // 初始化檢查收藏狀態
+        function checkFavoriteStatus() {
+            const favorites = JSON.parse(localStorage.getItem('favoriteBands')) || [];
+            if (favorites.includes(bandName)) {
+                favoriteBtn.textContent = '❤️ 已收藏';
+                favoriteBtn.classList.add('favorited');
+            } else {
+                favoriteBtn.textContent = '❤️ 收藏';
+                favoriteBtn.classList.remove('favorited');
+            }
+        }
+        
+        // 切換收藏狀態
+        function toggleFavorite() {
+            let favorites = JSON.parse(localStorage.getItem('favoriteBands')) || [];
+            const index = favorites.indexOf(bandName);
+            
+            if (index === -1) {
+                // 添加到收藏
+                favorites.push(bandName);
+                favoriteBtn.textContent = '❤️ 已收藏';
+                favoriteBtn.classList.add('favorited');
+            } else {
+                // 從收藏移除
+                favorites.splice(index, 1);
+                favoriteBtn.textContent = '❤️ 收藏';
+                favoriteBtn.classList.remove('favorited');
+            }
+            
+            // 保存到本地存儲
+            localStorage.setItem('favoriteBands', JSON.stringify(favorites));
+            
+            // 顯示操作反饋
+            const message = index === -1 ? '已收藏四分衛' : '已取消收藏四分衛';
+            alert(message);
+        }
+        
+        // 綁定點擊事件
+        favoriteBtn.addEventListener('click', toggleFavorite);
+        
+        // 頁面載入時檢查收藏狀態
+        window.addEventListener('DOMContentLoaded', checkFavoriteStatus);
+    </script>
+</body>
+</html>

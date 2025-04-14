@@ -1,0 +1,13 @@
+header a {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size:xx-large;
+    font-weight: normal;
+    color: rgb(134, 94, 46);
+}
+.ttt{
+    margin: 5px 10px;
+    border-style: solid;
+    padding: 7px;
+    color: rgb(173, 241, 189)!important;
+    background-color: rgb(161, 74, 243);
+}

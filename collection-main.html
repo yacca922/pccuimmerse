@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏清單</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 頁面標題 -->
+        <h1 class="page-title">收藏清單</h1>
+
+        <!-- 收藏項目 -->
+        <div class="favorite-list">
+            <!-- 修改1: 添加點擊事件跳轉到音樂祭收藏頁面 -->
+            <div class="favorite-item" onclick="window.location.href='collection-festivals.html'">
+                <img src="/Users/yuhan/Desktop/清單音樂祭.jpg" alt="音樂祭" class="favorite-image">
+                <div class="favorite-label">音樂祭</div>
+            </div>
+            <!-- 修改2: 添加點擊事件跳轉到樂團收藏頁面 -->
+            <div class="favorite-item" onclick="window.location.href='collection-bands.html'">
+                <img src="/Users/yuhan/Desktop/清單樂團.jpeg" alt="樂團" class="favorite-image">
+                <div class="favorite-label">樂團</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部導航列 -->
+    <nav class="fixed-bottom">
+        <a href="immerse.html"><i class="fas fa-home"></i></a>
+        <a href="音樂祭社群test.html"><i class="fa-solid fa-message"></i></a>
+        <a href="month music.html"><i class="fa-regular fa-calendar-days"></i></a>
+        <a href="collection-main.html"><i class="fas fa-bookmark"></i></a>
+        <a href="mine.html"><i class="fas fa-user"></i></a>
+    </nav>
+</body>
+</html>

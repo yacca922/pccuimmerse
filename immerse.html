@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app" style="padding: 20px;">
+        <!-- 頂部區域 -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <img src="main/Logo白邊.png" alt="音脈 Immerse" style="height: 70px;">
+            <span class="neon-text">以音為脈，串聯每場狂歡</span>
+
+            <style>
+            .neon-text {
+                font-size: 30px;
+                font-weight: bold;
+                color: #fff;
+                text-shadow: 
+                    0 0 5px #ff0000,
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    0 0 40px #ff0000;
+                animation: flicker 1.5s infinite alternate;
+            }
+            
+            @keyframes flicker {
+                0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                    text-shadow:
+                        0 0 5px #ff0000,
+                        0 0 10px #ff0000,
+                        0 0 20px #ff0000,
+                        0 0 40px #ff0000;
+                }
+                20%, 24%, 55% {        
+                    text-shadow: none;
+                }
+            }
+            </style>
+        </div>
+        
+        <!-- 搜索欄 -->
+        <div style="text-align: center; margin-top: 15px;">
+            <input type="text" id="searchBar" placeholder="搜尋音樂祭、樂團" 
+                   style="width: 80%; padding: 10px; font-size: 16px; border-radius: 5px; border: none;">
+            <button onclick="searchSite()" style="padding: 10px; font-size: 16px; background-color: red; color: white; border: none; border-radius: 5px;">
+                <i class="fas fa-search"></i>
+            </button>
+            <img src="main/immy頭.png" alt="用戶頭像" class="profile-circle" 
+            onclick="window.open('https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/03/08/14/20250308144840-KZKD5SFB.json', '_blank')">
+        </div>
+        <!-- 音樂類型分類 -->
+<div style="text-align: center; margin-top: 15px;">
+    <button style="background-color: red; color: white; padding: 10px; margin: 5px; border: none; border-radius: 5px;"
+        onclick="window.location.href='rock.html'">搖滾</button>
+
+    <button style="background-color: red; color: white; padding: 10px; margin: 5px; border: none; border-radius: 5px;"
+        onclick="window.location.href='upbeat.html'">熱血</button>
+
+    <button style="background-color: red; color: white; padding: 10px; margin: 5px; border: none; border-radius: 5px;"
+        onclick="window.location.href='soul.html'">靈魂</button>
+
+    <button style="background-color: red; color: white; padding: 10px; margin: 5px; border: none; border-radius: 5px;"
+        onclick="window.location.href='romantic.html'">浪漫</button>
+
+    <button style="background-color: red; color: white; padding: 10px; margin: 5px; border: none; border-radius: 5px;"
+        onclick="window.location.href='other.html'">其他</button>
+</div>
+
+            <section class="section">
+                <h2 class="section-title">全台音樂祭！</h2>
+                <div class="featured">   
+                    <a href="north.html"><img src="main/north.jpg" alt="北部" class="featured-image" ></a>
+                    <a href="central.html"><img src="main/中部.jpg" alt="中部" class="featured-image"></a>
+                    <a href="south.html"><img src="main/南部.jpg" alt="南部" class="featured-image"></a>
+                    <a href="east.html"><img src="main/東部.jpg" alt="東部" class="featured-image"></a>
+                </div>                
+            </section>
+            <section class="section">
+                <h2 class="section-title">熱門樂團</h2>
+                <div class="featured">
+                    <a href="草東沒有派對.html"><div class="carousel-item"><img src="main/草東.jpg" alt="草東沒有派對"></div></a>
+                    <a href="滅火器.html"><div class="carousel-item"><img src="main/滅火器.jpg"  alt="滅火器"></div></a>
+                    <a href="美秀集團.html"><div class="carousel-item"><img src="main/美秀.jpg" alt="美秀集團"></div></a>
+                    <a href="福夢.html"><div class="carousel-item"><img src="main/福夢.jpg" alt="福夢"></div></a>
+                </div>
+            </section>
+            
+        </main>
+        <!-- 底部導航欄 -->
+        <nav class="fixed-bottom">
+            <a href="immerse.html"><i class="fas fa-home"></i></a>
+            <a href="音樂祭社群test.html"><i class="fa-solid fa-message"></i></a>
+            <a href="month music.html"><i class="fa-regular fa-calendar-days"></i></a>
+            <a href="collection-main.html"><i class="fas fa-bookmark"></i></a>
+            <a href="mine.html"><i class="fas fa-user"></i></a>
+        </nav>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchBar = document.getElementById("searchBar");
+    
+            searchBar.addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    searchSite();
+                }
+            });
+        });
+    
+        function searchSite() {
+            const searchText = document.getElementById("searchBar").value.trim().toLowerCase();
+            
+            if (!searchText) return; // 沒輸入就不做任何事
+    
+            // 網站資料庫
+            const siteData = [
+                { name: "北部音樂祭", link: "north.html" },
+                { name: "中部音樂祭", link: "central.html" },
+                { name: "南部音樂祭", link: "south.html" },
+                { name: "東部音樂祭", link: "east.html" },
+                { name: "草東沒有派對", link: "草東沒有派對.html#草東" },
+                { name: "滅火器樂團", link: "滅火器.html#滅火器" },
+                { name: "福夢", link: "福夢.html#福夢" },
+                { name: "海岸乾杯", link: "海岸乾杯.html#海岸乾杯" },
+                { name: "美秀集團", link: "美秀集團.html#美秀" },
+                { name: "赤聲躁動", link: "赤聲躁動.html#赤聲躁動" },
+                { name: "浮現祭emerge", link: "浮現祭.html#浮現祭" },
+                { name: "倉庫音樂祭", link: "倉庫音樂祭.html#倉庫音樂祭" },
+                { name: "湖畔音樂季", link: "湖畔音樂季.html#湖畔音樂季" },
+                { name: "大港開唱", link: "大港開唱.html#大港" },
+                { name: "雨山祭", link: "雨山祭.html#雨山" },
+                { name: "台灣祭", link: "臺灣祭.html#台灣祭" },
+                { name: "屏東三大日音樂祭", link: "屏東三大日音樂祭.html#屏東三大日音樂祭" },
+                { name: "溫室雜草", link: "溫室雜草.html#溫室雜草" },
+                { name: "傻子與白癡", link: "傻子與白癡.html#傻白" },
+                { name: "Hello Nico", link: "Hello Nico.html#Hellonico" },
+                { name: "hue", link: "hue.html#hue" },
+                { name: "芒果醬", link: "芒果醬.html#芒果醬" },
+                { name: "麋先生", link: "麋先生.html#麋先生" },
+                { name: "無妄合作社", link: "無妄合作社.html#無妄" },
+                { name: "Obsess", link: "Obsess.html#obsess" },
+                { name: "老貓偵探社", link: "老貓偵探社.html#老貓偵探社" },
+                { name: "老破麻", link: "老破麻.html#老破麻" },
+                { name: "怕胖團", link: "怕胖團.html#怕胖" },
+                { name: "四分衛", link: "四分衛.html#四分衛" },
+                { name: "閃閃閃閃", link: "閃閃閃閃.html#閃4" },
+                { name: "溫蒂漫步", link: "溫蒂漫步.html#溫蒂" },
+                { name: "憂憂", link: "憂憂.html#憂憂" },
+                { name: "上岸音樂節", link: "上岸音樂節.html#上岸音樂" },
+                { name: "S2O TAIWAN潑水節", link: "S2O TAIWAN潑水節.html#S2O TAIWAN潑水節" },
+                { name: "春浪音樂節", link: "春浪音樂節.html#春浪音樂節" },
+                { name: "東浪嘉年華", link: "東浪嘉年華.html#東浪嘉年華" },
+                { name: "浪人祭", link: "浪人祭.html#浪人祭" },
+                { name: "破風祭", link: "破風祭.html#破風祭" },
+                { name: "羅漢祭", link: "羅漢祭.html#羅漢祭" },
+                { name: "阿米斯音樂節", link: "阿米斯音樂節.html#阿米斯音樂節" },
+                { name: "霓虹綠洲音樂祭", link: "霓虹綠洲音樂祭.html#霓虹綠洲音樂祭" },
+
+            ];
+    
+            // 找到匹配的結果
+            const match = siteData.find(item => item.name.toLowerCase().includes(searchText));
+    
+            if (match) {
+                window.location.href = match.link; // **直接跳轉到結果**
+            } else {
+                window.location.href = `search.html?q=${encodeURIComponent(searchText)}`; // 如果找不到，進入搜尋結果頁面
+            }
+        }
+    </script>         
+</body>
+</html>
+

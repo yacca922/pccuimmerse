@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>樂團介紹</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .header {
+            width: 100%;
+            text-align: center;
+            position: relative;
+            padding-top: 20px;
+        }
+        .ig-icon {
+            position: absolute;
+            top: 2px;
+            right: 20px;
+        }
+        .ig-icon img {
+            width: 40px;
+            height: 40px;
+        }
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 90%;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .image-container img {
+            width: 600px;
+            border-radius: 10px;
+        }
+        .text-container {
+            flex: 1;
+            max-width: 600px;
+            text-align: justify;
+            font-size: 25px;
+            line-height: 1.8;
+            display: flex;
+            justify-content: flex-end;
+        }
+        h1 {
+            font-size: 35px;
+            margin: 0;
+        }
+        h2 {
+            font-size: 22px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .favorite-btn {
+            position: fixed;
+            top: 20px;
+            right: 100px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        .favorite-btn:hover {
+            background-color: #ff6b81;
+            transform: scale(1.05);
+        }
+        .favorite-btn.favorited {
+            background-color: #2ed573;
+        }
+        .favorite-btn.favorited:hover {
+            background-color: #7bed9f;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn:hover {
+            background-color: #5a5a5a;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="collection-bands.html" class="back-btn">← 返回</a>
+        <button id="favorite-btn" class="favorite-btn">❤️ 收藏</button>
+        <h1 id="band-name">樂團名稱</h1>
+        <a id="ig-link" class="ig-icon" target="_blank">
+            <img src="main/ig-logo-vector-23.jpg" alt="IG">
+        </a>
+    </div>
+
+    <h2 id="band-alias">樂團別名</h2>
+
+    <div class="content">
+        <div class="image-container">
+            <img id="band-image" alt="樂團圖片">
+        </div>
+        <div class="text-container">
+            <p id="band-description">樂團描述將在這裡顯示...</p>
+        </div>
+    </div>
+
+    <script>
+        // 從URL獲取樂團名稱
+        const urlParams = new URLSearchParams(window.location.search);
+        const bandName = urlParams.get('name');
+        
+        // 樂團資料庫 (實際應用中應該從後端API獲取)
+        const bandDatabase = {
+            "溫室雜草": {
+                alias: "Easy Weeds",
+                igLink: "https://www.instagram.com/easy_weeds/",
+                description: "為 2019 年自台中發跡的三件式樂團，由主唱／電吉他阿Ｊ、貝斯手正約、爵士鼓小康組成，2021 年初發行《春天有腳》EP 通過三首追尋衝浪感、體現幽默與浪漫的鬆弛創作，搭配反差十足的躁動演出現場，以扎實、酥麻的破音聲響震耳彈奏，帶給聽眾最新鮮的聽覺刺激。",
+                image: "images/bands/溫室雜草.jpg"
+            },
+            "福夢": {
+                alias: "FUMON",
+                igLink: "https://www.instagram.com/fumonofficial/",
+                description: "是台灣的獨立樂團，成立於2018年，曲風融合了搖滾、民謠和電子音樂，並以其獨特的音樂風格和現場演出而聞名。",
+                image: "images/bands/福夢.jpg"
+            },
+            "美秀集團": {
+                alias: "Amazing Show",
+                igLink: "https://www.instagram.com/amazingshowtw/",
+                description: "是台灣嘉義的獨立樂團，曲風特色是帶有復古台味的搖滾和民謠，樂團採用自製樂器進行演出。",
+                image: "images/bands/美秀集團.jpg"
+            },
+            "老貓偵探社": {
+                alias: "The Old Mog",
+                igLink: "https://www.instagram.com/the_old_mog/",
+                description: "由主唱捲毛慶勳，吉他彥旭，貝斯揚智，鼓手郁晉，吉他執翰。成立於2012年，團名來自於倪匡的科幻小說「老貓」。成員們來自高雄與臺南。現場演出經驗豐富，特色為獨異又具生活化的詞曲，以及風格強烈的美術設計。2017年以專輯《小港羅曼史》獲得【第八屆金音創作獎 - 最佳搖滾專輯獎】。",
+                image: "images/bands/老貓偵探社.jpg"
+            },
+            "hue": {
+                alias: "hue",
+                igLink: "https://www.instagram.com/hue__official/",
+                description: "由主唱兼吉他手知更、Bass 手 Amo、鼓手仲熙由2017 年組成，三人的相遇不如搖滾樂般轟轟烈烈，而是跟隨著網路世代的潮流，透過「網路交友」認識；知更在一次燈泡廣告發現了 hue 這個單字，他說：「hue 意味著色調，很多元，各種光譜都有，『hue』就蠻符合我們的創作精神，每個感情、每首歌都有屬於自己的顏色，自然而然成為我們的中心思想。」",
+                image: "images/bands/hue.jpg"
+            },
+            "草東沒有派對": {
+                alias: "No Party For Cao Dong",
+                igLink: "https://www.instagram.com/nopartyforcaodong/",
+                description: "是台灣的獨立樂團，成立於2015年，以其獨特的音樂風格和深刻的歌詞而聞名。",
+                image: "images/bands/草東沒有派對.jpg"
+            },
+            "閃閃閃閃": {
+                alias: "The Shine Shine Shine Shine",
+                igLink: "https://www.instagram.com/theshine_4/",
+                description: "2005年成立的閃四，當年以搖滾融合清新indie風格與電⼦節拍，透過甜美澀⾕系少女嗓⾳唱出青春的多愁善感及浪漫情懷，成為那時候台灣獨立樂團⼀道獨特的風景。歷經休團和團員變動，2021年確立新班底，現由主唱⾺摳、吉他手鄭平、阮眯、⼩妹、⾙斯手Omoi和鼓手肚皮所組成。",
+                image: "images/bands/閃閃閃閃.jpg"
+            },
+            "溫蒂漫步": {
+                alias: "The Shine Shine Shine Shine",
+                igLink: "https://www.instagram.com/wendywanderofficial/",
+                description: "是台灣獨立樂團，目前成員為江楊（主唱、貝斯手），曾妮（主唱、吉他手），瑋翔（吉他手），李曜如（鍵盤手），阿叡（鼓手）五人，成立於2018年，所有創作歌曲全親自操刀，團名由江楊發想，會用「溫蒂」是因為他以前很喜歡吃溫蒂漢堡。2020年溫蒂漫步以一首〈我想和你一起〉孤峰突起。",
+                image: "images/bands/溫蒂漫步.jpg"
+            },
+            "芒果醬": {
+                alias: "MangoJump",
+                igLink: "https://www.instagram.com/mangojumptheband/",
+                description: "成立於2017，由主唱郭佐治、吉他手蔡有倫，貝斯手達達、鼓手黃聖智四人組成，音樂創作靈感受早期五月天的愛情元素影響至深，編曲與演奏方式則手滅火器、胖虎、巨大的轟鳴…等台灣龐克樂團影響。",
+                image: "images/bands/芒果醬.png"
+            },
+            "麋先生": {
+                alias: "MIXER",
+                igLink: "https://www.instagram.com/mixerband_official?fbclid=IwY2xjawJHR7pleHRuA2FlbQIxMAABHXsd-UA-POxwhYHsKsxhLrFqfM-9Ex0so4sPzJCUVMG_hKieBcr0gEIIIQ_aem_3u2k5jQNVRPSUp0xxy5lHA",
+                description: "2012年10月正式成軍以「麋先生」做為樂團團名。成員共有五人，由主唱吳聖皓、木吉他手林喆安、電吉他手小B余柏羲、貝斯手張以諾、和鼓手盧逸凡所組成。麋先生淋漓暢快的曲風，搭配著如詩迷幻意識張顯的詞曲風格，加上主唱獨特的嗓音和爆發力十足的舞台魅力，迅速引起各界矚目，以專輯《馬戲團運動》首度入圍第25屆金曲獎，並獲得最佳樂團獎。",
+                image: "images/bands/麋先生.jpg"
+            },
+            "滅火器": {
+                alias: "Fire-EX",
+                igLink: "https://www.facebook.com/FireEX/",
+                description: "一個來自台灣高雄的台語龐克樂團，團員包括主唱兼吉他手楊大正、吉他兼和音鄭宇辰、貝斯手兼和音陳敬元及鼓手吳迪。2015年成立火氣音樂，團隊以過去十八年經營滅火器的經驗為基底，透過不同的團隊合作組合，試圖挑戰更多創新的嘗試，更希望「火氣音樂」能成為一個為市場環境帶來正面影響的廠牌。",
+                image: "images/bands/滅火器.jpg"
+            },
+            "Obsess": {
+                alias: "",
+                igLink: "https://www.instagram.com/obsess_official/",
+                description: "2008年於台中成立，由主唱魏小、合音Sao、吉他冠輯與阿欣、貝斯手彥庭以及鼓手阿樹組成。成團至今十三年來經歷多次團員更迭，最後長期維持了雙主唱的形式；時而低語呢喃，時而撕心裂肺的吶喊，主唱們的聲線搭著強烈節拍與吉他樂句，描寫對人性與社會的觀察，豐富的情感時刻衝擊著聽眾的思想，彷彿極力證明著「Emo精神，永存不滅」。",
+                image: "images/bands/Obsess.jpg"
+            },
+            "怕胖團": {
+                alias: "PAPUN",
+                igLink: "https://www.instagram.com/papun_band/",
+                description: " 是成員共有三人，由吉他手兼主唱謝侃均（閃亮）、貝斯手黃怡瑋（大寶）、鼓手魏敦華（老外）組成。2007年，在臺中有兩位對音樂充滿著夢想的學生（閃亮、Wee Man）一起組成一組兩人音樂團體，在想該叫什麼團名的時候，決定以POP PUNK的諧音而取名怕胖團。同年，兩人開始了樂團的演出，並發行了第一張EP《不接你的電話》。7月8日，更參與了第八屆貢寮國際海洋音樂季的演出。2008年，鼓手魏敦華加入。",
+                image: "images/bands/怕胖團.jpg"
+            },
+            "老破麻": {
+                alias: "O.S.D",
+                igLink: "https://www.instagram.com/osdpewpew/",
+                description: " 2016年於台中市成立，為男女雙主唱的六人樂團[1]。曾於2019年的貢寮海洋音樂祭獲得評審團大獎[2]。現由男女雙主唱李仁喆與嚴若玲、吉他手陳建發與崇家璇、貝斯手沈皇谷及鼓手林子傑所組成。女主唱以吼腔為主，男主唱以清腔再帶點像吉他效果器 Distortion 的效果演唱；以邪典搖滾(Cult Rock)以及喜劇金屬(Comedy Metal)自居，演奏風格融合 Rock、Grunge、Bossa Nova、Hardcore、Funcky、hip-hop、Jazz (可能還有Raggae)...等多元曲風，在詞曲的安排上則以嘲諷主義做為所有創作核心。自立麻式哲學，強調「不強調平等」，歧視本身就不存在。以當代歌仔冊自居，用批判式破歌笑看人生百態。",
+                image: "images/bands/老破麻.png"
+            },
+            "海岸乾杯": {
+                alias: "Coastal Kanpai",
+                igLink: "https://www.instagram.com/coastal_kanpai/",
+                description: " 新世代台語搖滾樂團，來自新竹，以海的意念傳達出這個社會的寫實故事，於2019年12月正式發行首張EP【欲來出海Break up to the World】",
+                image: "images/bands/海岸乾杯.jpg"
+            },
+            "憂憂": {
+                alias: "Yō-Yō",
+                igLink: "https://www.instagram.com/yoyobandtw/",
+                description: " 憂憂由六位對音樂抱有熱情的大學生組成，曲風不落俗套，大膽地在音樂中加入豐富音效，於本屆決賽一舉拿下街聲大團誕生特別獎、最佳編曲人及金旋創作大賞三項大獎，是第 40 屆金旋獎表現極為亮眼的一組新生代樂團。",
+                image: "images/bands/憂憂.jpeg"
+            },
+            "四分衛": {
+                alias: "Yō-Yō",
+                igLink: "https://www.instagram.com/quarterback_band/",
+                description: " 成立於1995年（前身「Hexagon六角形」於1993年成立），團員為吉他手兼團長虎神、主唱阿山、吉他手小郭。曾入圍第 11 屆、13 屆、 15 屆金曲獎最佳樂團；獲得金音獎最佳樂團、 最佳現場獎，及最佳搖滾單曲獎〈一首搖滾上月球〉；〈I Love You〉獲 50 屆金馬獎最佳原創歌曲。",
+                image: "images/bands/四分衛.jpg"
+            },
+            "傻子與白痴": {
+                alias: "Fool & Idiot",
+                igLink: "https://www.instagram.com/foolandidiot_official/",
+                description: " 成立於2015年，現任成員為蔡維澤、徐維均、鄭光良、李沂邦。主唱兼貝斯手維澤與鼓手維均為高中同班同學，同時也都是新竹高中熱音社社員，經歷了初代吉他手及貝斯手離團後，找來了於熱音社成長發展時所相識的武陵熱音吉他手光良。在2018年9月左右李沂邦加入，擔任貝斯手，平均年齡28歲。",
+                image: "images/bands/傻子與白痴.jpg"
+            },
+            "Hello Nico": {
+                alias: "",
+                igLink: "https://www.instagram.com/hello.nico.official/",
+                description: " 臺灣獨立搖滾樂團，2013年成立，成員為詹宇庭、李詠恩、陳信伯、關惠中，2016年獲得第27屆金曲獎最佳新人獎提名。2024年9月10日凌晨0點整，迷你專輯《Plan B：如果回來，我們一起看海》正式上線串流平台 。",
+                image: "images/bands/Hello Nico.jpg"
+            },
+            "無妄合作社": {
+                alias: "No-nonsense Collective",
+                igLink: "https://www.instagram.com/nononsense_collective/",
+                description: " 主唱郭力瑋與吉他手謝秉男，貝斯手謝碩元，鼓手邱孝齊。謝碩元和謝秉男在松山高中熱音社認識，因為都喜歡 pop punk 而聚在一起組團。於 2016 年成立，啟發自香菸焦油、林間野味與都市廢氣。",
+                image: "images/bands/無妄合作社.png"
+            },
+
+            // 其他樂團資料可以在這裡添加
+            // 可以添加更多樂團資料
+            
+            
+        };
+        
+
+        // 載入樂團資料
+        function loadBandData() {
+            if (!bandName) {
+                alert("未指定樂團名稱");
+                window.location.href = "collection-bands.html";
+                return;
+            }
+
+            const bandData = bandDatabase[bandName];
+            if (!bandData) {
+                alert("找不到該樂團的資料");
+                window.location.href = "collection-bands.html";
+                return;
+            }
+
+            document.title = bandName;
+            document.getElementById("band-name").textContent = bandName;
+            document.getElementById("band-alias").textContent = bandData.alias;
+            document.getElementById("ig-link").href = bandData.igLink;
+            document.getElementById("band-description").textContent = bandData.description;
+            document.getElementById("band-image").src = bandData.image;
+            
+            // 檢查收藏狀態
+            checkFavoriteStatus();
+        }
+
+        // 檢查收藏狀態
+        function checkFavoriteStatus() {
+            const favorites = JSON.parse(localStorage.getItem('favoriteBands')) || [];
+            const favoriteBtn = document.getElementById('favorite-btn');
+            
+            if (favorites.includes(bandName)) {
+                favoriteBtn.textContent = '❤️ 已收藏';
+                favoriteBtn.classList.add('favorited');
+            } else {
+                favoriteBtn.textContent = '❤️ 收藏';
+                favoriteBtn.classList.remove('favorited');
+            }
+        }
+
+        // 切換收藏狀態
+        function toggleFavorite() {
+            let favorites = JSON.parse(localStorage.getItem('favoriteBands')) || [];
+            const index = favorites.indexOf(bandName);
+            const favoriteBtn = document.getElementById('favorite-btn');
+            
+            if (index === -1) {
+                favorites.push(bandName);
+                favoriteBtn.textContent = '❤️ 已收藏';
+                favoriteBtn.classList.add('favorited');
+            } else {
+                favorites.splice(index, 1);
+                favoriteBtn.textContent = '❤️ 收藏';
+                favoriteBtn.classList.remove('favorited');
+            }
+            
+            localStorage.setItem('favoriteBands', JSON.stringify(favorites));
+        }
+
+        // 綁定事件
+        document.getElementById('favorite-btn').addEventListener('click', toggleFavorite);
+        
+        // 頁面載入時執行
+        window.addEventListener('DOMContentLoaded', loadBandData);
+    </script>
+</body>
+</html>

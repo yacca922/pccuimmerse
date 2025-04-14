@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+ 
+  body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+  }
+ 
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+ 
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: black;
+    border-bottom: 1px solid gray;
+  }
+ 
+  .header .back-icon, .header .menu-icon {
+    font-size: 20px;
+    cursor: pointer;
+  }
+ 
+  .header .page-title {
+    font-weight: bold;
+    font-size: 16px;
+  }
+ 
+  .main {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+  }
+ 
+
+
+
+  .post, .comment {
+    margin-bottom: 20px;
+  }
+ 
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+ 
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+ 
+  .username {
+    font-weight: bold;
+  }
+ 
+  .time {
+    font-size: 12px;
+    color: gray;
+  }
+ 
+  .post-content, .comment-content {
+    margin: 10px 0;
+    line-height: 1.5;
+  }
+ 
+  .post-actions, .comment-actions {
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+    margin: 5px 0;
+  }
+ 
+  .likes {
+    font-size: 12px;
+    color: gray;
+  }
+ 
+  .post-image {
+    width: 20%;
+    border-radius: 10px;
+    margin: 10px 0;
+  }
+ 
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #5b3629;
+    padding: 10px;
+  }
+ 
+  .nav-item {
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+  }
+ 
+  .nav-item.active {
+    color: yellow;
+  }
+/* 底部導航列 */
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;  /* 平均分布圖示 */
+    background-color: #4B2A2A;         /* 背景顏色 */
+    padding: 30px 0;                /* 上下內邊距 */
+    box-shadow: 0 -2px 5px rgba(238, 255, 2, 0);  /* 加上陰影 */
+}
+
+.fixed-bottom i {
+    font-size: 40px;  /* 設定圖示的大小 */
+    color: #ffffff;      /* 設定圖示顏色 */
+    cursor: pointer;  /* 改變鼠標樣式 */
+    transition: color 0.3s;  /* 加上過渡效果 */
+}
+
+.fixed-bottom i:hover {
+    color: #ffe200;  /* 滑鼠懸停時顏色變化 */
+}
